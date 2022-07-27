@@ -1,19 +1,28 @@
-const Event = require('../../structures/Event')
+const Event = require("../../structures/Event");
 
-module.exports = class extends Event{
-    constructor(client, options){
-        super(client, {
-            name: 'interactionCreate'
-        })
-    }
+module.exports = class extends Event {
+  constructor(client, options) {
+    super(client, {
+      name: "interactionCreate",
+    });
+  }
 
-    run = (interaction) =>{
-        if (interaction.isCommand()) {
-            const cmd = this.client.commands.find(c => c.name === interaction.commandName)
+  run = async (interaction) => {
+    if (interaction.isCommand()) {
+      if (!interaction.guild) return;
 
-            if (cmd) {
-                cmd.run(interaction)
-            }
+      const cmd = this.client.commands.find(
+        (c) => c.name === interaction.commandName
+      );
+      if (cmd) {
+        if (cmd.requireDatabase) {
+          interaction.guild.db =
+            (await this.client.db.guilds.findById(interaction.guild.id)) ||
+            new this.client.db.guilds({ _id: interaction.guild.id });
         }
+
+        cmd.run(interaction);
+      }
     }
-}
+  };
+};
