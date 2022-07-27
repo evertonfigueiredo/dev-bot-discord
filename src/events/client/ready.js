@@ -7,10 +7,9 @@ module.exports = class extends Event{
         })
     }
 
-    run = () =>{
+    run = async () =>{
         console.log(`${this.client.user.username} logado com sucesso em ${this.client.guilds.cache.size} servidores.`);
-        console.log("Teste de atualização pelo git");
         this.client.registryCommands()
-        
+        await this.client.connectToDatabase()
     }
 }
