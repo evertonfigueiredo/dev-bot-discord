@@ -14,9 +14,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^7.6.2",
     "discord.js": "^13.9.1",
     "dotenv": "^16.0.1",
     "mongoose": "^6.5.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "quick.db": "^9.0.5"
   }
 }

@@ -23,7 +23,7 @@ module.exports = class extends Command {
   }
 
   run = (interaction) => {
-    if (!interaction.member.permissions.has("MANAGE_MESSAGES ")) {
+    if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return interaction.reply({
         content:
           "Você precisa de permissão para excluir mensagens no servidor.",
