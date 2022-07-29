@@ -13,7 +13,7 @@ module.exports = class extends Event {
     );
 
     this.client.registryCommands()
-    
+    this.client.twitchNotificaions()
 
     let registrado = "884497986351157258"; // id do cargo registrado
 
