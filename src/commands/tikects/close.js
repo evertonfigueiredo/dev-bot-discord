@@ -28,8 +28,16 @@ module.exports = class extends Command {
       `sistema_de_tickets_${interaction.guild.id}`
     );
 
+    let sistema_desativado = new Discord.MessageEmbed()
+      .setColor("RED")
+      .setDescription(`O sistema  de tickets está \`desativado\`!`);
+
     if (confirmando_sistema === null || false)
-      return interaction.reply(`O sistema  de tickets está \`desativado\`!`);
+      return interaction.reply({
+        content: `${interaction.user}`,
+        embeds: [sistema_desativado],
+        ephemeral: true,
+      });
 
     let confirmando_ticket = interaction.user.id;
     if (confirmando_ticket != interaction.channel.name)

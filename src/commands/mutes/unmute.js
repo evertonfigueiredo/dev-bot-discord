@@ -6,7 +6,7 @@ const db = new QuickDB();
 module.exports = class extends Command {
   constructor(client) {
     super(client, {
-      name: "umute",
+      name: "unmute",
       description: "Desmuta o usuário do servidor.",
       options: [
         {
@@ -60,7 +60,10 @@ module.exports = class extends Command {
         embeds: [sucesso],
         ephemeral: true,
       })
-      .then(() => {
+      .then(async() => {
+
+        await db.delete(`membro_${interaction.guild.id}`, membro.id);
+
         membro.roles.remove(cargo_mute.id).catch((err) => {
           interaction.editReply({
             content: `${interaction.user}`,

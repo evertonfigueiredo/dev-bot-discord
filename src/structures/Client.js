@@ -1,14 +1,14 @@
 const { Client } = require("discord.js");
+const fetch = require("node-fetch");
 
 // Conexão com banco de dados
 const mongoose = require("mongoose");
 const dbName = "dev-bot-discord";
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
+// const dbUser = process.env.DB_USER;
+// const dbPassword = process.env.DB_PASSWORD;
 
 // Importação das models
-const Models = require('../database/models/Models')
-
+const Models = require("../database/models/Models");
 
 const { readdirSync } = require("fs");
 const { join } = require("path");
@@ -63,13 +63,15 @@ module.exports = class extends Client {
     }
   }
 
-  async connectToDatabase() {
-    const connection = await mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.fmlsj.mongodb.net/${dbName}?retryWrites=true&w=majority`);
-    if (connection) {
-      console.log("Banco de dados conectado com sucesso!");
+  // async connectToDatabase() {
+  //   const connection = await mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.fmlsj.mongodb.net/${dbName}?retryWrites=true&w=majority`);
+  //   if (connection) {
+  //     console.log(`✅ - Banco de dados conectado com sucesso!`);
 
-      this.db = {connection, ...Models}
-      
-    }
-  }
+  //     this.db = {connection, ...Models}
+
+  //   }
+  // }
+
+
 };

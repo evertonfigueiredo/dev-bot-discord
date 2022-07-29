@@ -89,6 +89,8 @@ module.exports = class extends Command {
           interaction.editReply({
             content: `${interaction.user}`,
             embeds: [desativado],
+          }).then(() => {
+            i.message.delete()
           });
           break;
 
