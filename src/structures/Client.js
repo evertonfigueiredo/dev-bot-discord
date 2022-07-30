@@ -37,6 +37,7 @@ module.exports = class extends Client {
           process.cwd(),
           `${path}/${category}/${command}`
         ));
+
         const cmd = new commandClass(this);
 
         this.commands.push(cmd);
@@ -73,45 +74,4 @@ module.exports = class extends Client {
   //   }
   // }
 
-  async twitchNotificaions() {
-    let { expires_in, access_token } = await this.get_token();
-
-    setInterval(() => {
-      fetch("https://api.twitch.tv/helix/streams?user_login=everton_dev", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Client-Id": process.env.TWITCH_CLIENT,
-        },
-      }).then((response) => {
-        response.json().then((json) => {
-          var utcDate = json.data[0].started_at;
-          let dataTime = utcDate.split("T");
-          let data = dataTime[0];
-          let time = dataTime[1].substring(0, dataTime[1].length - 1);
-          let newTimeTemp = time.split(":");
-          let newHour = parseInt(newTimeTemp[0]) - 3;
-          let newTime = `${newHour}:${newTimeTemp[1]}:${newTimeTemp[2]}`;
-        });
-      });
-      console.log(Date.now());
-    }, 1000 * 600);
-  }
-
-  async get_token() {
-    return fetch("https://id.twitch.tv/oauth2/token", {
-      body: `client_id=${process.env.TWITCH_CLIENT}&client_secret=${process.env.TWITCH_SECRET}&grant_type=client_credentials`,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      method: "POST",
-    })
-      .then((response) => {
-        return response.json(response).then((response_json) => {
-          return response_json;
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 };
